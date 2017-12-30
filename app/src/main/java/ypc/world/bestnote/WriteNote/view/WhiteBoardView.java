@@ -194,7 +194,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView{
 
 
     private void saveDrawingPath() {
-
+        presenter.saveDrawingPath();
     }
 
     @Override
@@ -223,7 +223,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView{
                 if (mBufferBitmap == null) {
                     initBuffer();
                 }
-                if (mMode == Mode.ERASER && !mCanEraser) {
+                if (mMode == Mode.ERASER && !presenter.canErase()) {
                     break;
                 }
                 mBufferCanvas.drawPath(mPath, mPaint);
@@ -232,7 +232,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView{
                 mLastY = y;
                 break;
             case MotionEvent.ACTION_UP:
-                if (mMode == Mode.DRAW || mCanEraser) {
+                if (mMode == Mode.DRAW || presenter.canErase()) {
                     saveDrawingPath();
                 }
                 mPath.reset();

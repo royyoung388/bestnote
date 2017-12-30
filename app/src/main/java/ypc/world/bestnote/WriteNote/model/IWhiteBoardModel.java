@@ -20,6 +20,9 @@ public interface IWhiteBoardModel {
     List<DrawingInfo> getRemovedList();
 
 
+    boolean canErase();
+
+
     //撤销 反撤销
     boolean canRedo();
 
@@ -31,4 +34,8 @@ public interface IWhiteBoardModel {
 
     //清除
     void Clear();
+
+
+    //保存
+    void saveDrawingPath(Path cPath, Paint cPaint);
 }

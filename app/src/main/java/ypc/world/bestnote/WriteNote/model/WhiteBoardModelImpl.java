@@ -110,17 +110,18 @@ public class WhiteBoardModelImpl implements IWhiteBoardModel{
     }
 
 
-    public void saveDrawingPath() {
+    @Override
+    public void saveDrawingPath(Path cPath, Paint cPaint) {
         if (mDrawingList == null) {
             mDrawingList = new ArrayList<>(MAX_CACHE_STEP);
         } else if (mDrawingList.size() == MAX_CACHE_STEP) {
             mDrawingList.remove(0);
         }
-        Path cachePath = new Path(mPath);
-        Paint cachePaint = new Paint(mPaint);
+        Path cachePath = new Path(cPath);
+        Paint cachePaint = new Paint(cPaint);
         PathDrawingInfo info = new PathDrawingInfo();
         info.setPath(cachePath);
-        info.paint = cachePaint;
+        info.setPaint(cachePaint);
         mDrawingList.add(info);
         mCanEraser = true;
         if (mCallback != null) {
@@ -128,5 +129,10 @@ public class WhiteBoardModelImpl implements IWhiteBoardModel{
         }
     }
 
+
+    @Override
+    public boolean canErase() {
+        return this.mCanEraser;
+    }
 
 }

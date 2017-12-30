@@ -58,6 +58,17 @@ public class WhiteBoardPresenter {
     public void Clear() {
         model.Clear();
     }
+
+
+    public void saveDrawingPath()
+    {
+        model.saveDrawingPath(view.getPath(), view.getPaint());
+    }
+
+
+    public boolean canErase() {
+        return model.canErase();
+    }
 }
 
 
