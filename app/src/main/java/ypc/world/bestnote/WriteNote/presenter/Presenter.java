@@ -21,7 +21,7 @@ public class Presenter {
         model.modelDo(new Listener() {
             @Override
             public void onSuccess() {
-                view.doSomething();
+                //view.doSomething();
             }
 
             @Override

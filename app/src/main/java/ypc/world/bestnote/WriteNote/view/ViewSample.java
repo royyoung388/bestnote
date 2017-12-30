@@ -5,5 +5,5 @@ package ypc.world.bestnote.WriteNote.view;
  */
 
 public interface ViewSample {
-    void doSomething();
+    void toMainActivity();
 }

@@ -7,6 +7,7 @@ import ypc.world.bestnote.WriteNote.presenter.Listener;
  */
 
 public class ModelImpl implements ModelSample {
+
     @Override
     public void modelDo(Listener listener) {
 

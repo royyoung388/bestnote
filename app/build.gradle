@@ -6,7 +6,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "ypc.world.bestnote"
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -34,4 +34,6 @@ dependencies {
 
     //eventbus
     compile 'org.greenrobot:eventbus:3.1.1'
+
+
 }

@@ -2,6 +2,7 @@ package ypc.world.bestnote.WriteNote.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements ViewSample{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initWhiteBoard();
     }
     
     public static void start(Context context) {
@@ -22,7 +24,14 @@ public class MainActivity extends AppCompatActivity implements ViewSample{
     }
 
     @Override
-    public void doSomething() {
+    public void toMainActivity() {
 
     }
+
+
+    private void initWhiteBoard()
+    {
+
+    }
+
 }
