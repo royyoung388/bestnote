@@ -1,13 +1,12 @@
 package ypc.world.bestnote.WriteNote.presenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ypc.world.bestnote.WriteNote.model.DrawInfos.DrawingInfo;
-import ypc.world.bestnote.WriteNote.model.IWhiteBoardModel;
-import ypc.world.bestnote.WriteNote.model.WhiteBoardModelImpl;
+import ypc.world.bestnote.WriteNote.model.WhiteBoardModel.IWhiteBoardModel;
+import ypc.world.bestnote.WriteNote.model.WhiteBoardModel.WhiteBoardModelImpl;
 import ypc.world.bestnote.WriteNote.view.IWhiteBoardView;
-import ypc.world.bestnote.WriteNote.view.WhiteBoardView;
+
 /**
  * Created by RoyYoung on 2017/12/28.
  */

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
@@ -23,13 +24,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        contentView = setContentView();
+        contentView = bindView();
+        if (contentView == null)
+            contentView = LayoutInflater
+                    .from(this)
+                    .inflate(bindLayout(), null);
         setContentView(contentView);
 
         //buterknife
         ButterKnife.bind(this);
         //eventbus
-        EventBus.getDefault().register(this);
+    //    EventBus.getDefault().register(this);
 
         init();
     }
@@ -38,27 +43,26 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        EventBus.getDefault().unregister(this);
+    //    EventBus.getDefault().unregister(this);
     }
 
     /**
      * 设置布局的View
-     * @return  获取布局，用于setContentView
+     * @return  获取布局，用于getContentView
      */
-    protected abstract View setContentView();
+    protected abstract int bindLayout();
 
     /**
-     * 初始化的所有方法
+     * 初始化
      */
     protected abstract void init();
 
+
     /**
-     * 获取View
+     *
      * @return
      */
-    private View getContentView() {
-        return contentView;
-    }
+    protected abstract View bindView();
 
     /**
      * 获取Context

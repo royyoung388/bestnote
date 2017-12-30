@@ -13,11 +13,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import ypc.world.bestnote.WriteNote.Manager;
 import ypc.world.bestnote.WriteNote.model.DrawInfos.DrawingInfo;
-import ypc.world.bestnote.WriteNote.model.WhiteBoardModelImpl;
 import ypc.world.bestnote.WriteNote.presenter.WhiteBoardPresenter;
 
 /**
@@ -79,6 +78,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView{
 
     private void init() {
         presenter = new WhiteBoardPresenter(this);
+        Manager.registerWhiteBoardPresenter(presenter);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setFilterBitmap(true);

@@ -1,23 +1,20 @@
-package ypc.world.bestnote.WriteNote.model;
+package ypc.world.bestnote.WriteNote.model.WhiteBoardModel;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.OnClick;
 import ypc.world.bestnote.WriteNote.model.DrawInfos.DrawingInfo;
 import ypc.world.bestnote.WriteNote.model.DrawInfos.PathDrawingInfo;
+import ypc.world.bestnote.WriteNote.model.WhiteBoardModel.IWhiteBoardModel;
 
 /**
  * Created by Administrator on 2017/12/30 0030.
  */
 
-public class WhiteBoardModelImpl implements IWhiteBoardModel{
+public class WhiteBoardModelImpl implements IWhiteBoardModel {
 
 
     private boolean mCanEraser;

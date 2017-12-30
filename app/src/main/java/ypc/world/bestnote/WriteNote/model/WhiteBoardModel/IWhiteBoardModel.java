@@ -1,4 +1,4 @@
-package ypc.world.bestnote.WriteNote.model;
+package ypc.world.bestnote.WriteNote.model.WhiteBoardModel;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
