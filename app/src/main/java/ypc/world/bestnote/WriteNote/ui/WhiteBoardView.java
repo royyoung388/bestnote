@@ -1,4 +1,4 @@
-package ypc.world.bestnote.WriteNote.view;
+package ypc.world.bestnote.WriteNote.ui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,12 +18,13 @@ import java.util.List;
 import ypc.world.bestnote.WriteNote.Manager;
 import ypc.world.bestnote.WriteNote.model.DrawInfos.DrawingInfo;
 import ypc.world.bestnote.WriteNote.presenter.WhiteBoardPresenter;
+import ypc.world.bestnote.WriteNote.view.IWhiteBoardView;
 
 /**
  * Created by Administrator on 2017/12/30 0030.
  */
 
-public class WhiteBoardView extends View implements IWhiteBoardView{
+public class WhiteBoardView extends View implements IWhiteBoardView {
 
 
     private WhiteBoardPresenter presenter;
@@ -51,6 +52,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView{
     public Path getPath() {
         return this.mPath;
     }
+
 
     private void initBuffer() {
         mBufferBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
@@ -119,6 +121,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView{
      * 设置橡皮擦大小
      * @param size
      */
+    @Override
     public void setEraserSize(float size) {
         mEraserSize = size;
     }
@@ -128,7 +131,8 @@ public class WhiteBoardView extends View implements IWhiteBoardView{
      * 设置笔大小
      * @param size
      */
-    public void setPenRawSize(float size) {
+    @Override
+    public void setPenSize(float size) {
         mEraserSize = size;
     }
 
@@ -137,6 +141,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView{
      * 设置笔颜色
      * @param color
      */
+    @Override
     public void setPenColor(int color) {
         mPaint.setColor(color);
     }

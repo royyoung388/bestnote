@@ -17,4 +17,12 @@ public interface IWhiteBoardView {
 
     Paint getPaint();
 
+
+    void setPenColor(int color);
+
+
+    void setPenSize(float size);
+
+
+    void setEraserSize(float size);
 }

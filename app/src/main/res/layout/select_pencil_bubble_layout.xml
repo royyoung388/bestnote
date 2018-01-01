@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daasuu.bl.BubbleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    app:bl_arrowDirection="top"
+    app:bl_arrowHeight="12dp"
+    app:bl_arrowPosition="16dp"
+    app:bl_arrowWidth="8dp"
+    app:bl_bubbleColor="@color/lightblue"
+    app:bl_cornersRadius="2dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/select_color_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </LinearLayout>
+</com.daasuu.bl.BubbleLayout>

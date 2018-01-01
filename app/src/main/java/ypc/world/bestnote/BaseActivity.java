@@ -33,8 +33,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         //buterknife
         ButterKnife.bind(this);
-        //eventbus
-    //    EventBus.getDefault().register(this);
 
         init();
     }

@@ -68,6 +68,21 @@ public class WhiteBoardPresenter {
     public boolean canErase() {
         return model.canErase();
     }
+
+
+    public void setPenColor(int color) {
+        view.setPenColor(color);
+    }
+
+
+    public void setPenSize(float size) {
+        view.setPenSize(size);
+    }
+
+
+    public void setEraserSize(float size) {
+        view.setEraserSize(size);
+    }
 }
 
 
