@@ -9,12 +9,16 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Xfermode;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.List;
 
+import butterknife.OnClick;
+import ypc.world.bestnote.R;
 import ypc.world.bestnote.WriteNote.Manager;
 import ypc.world.bestnote.WriteNote.model.DrawInfos.DrawingInfo;
 import ypc.world.bestnote.WriteNote.presenter.WhiteBoardPresenter;
@@ -33,6 +37,8 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
     private Path mPath;
     private float mLastX;
     private float mLastY;
+    private float eraserX, eraserY;
+    private boolean drawEraser = false;
 
 
     private Xfermode mClearMode;
@@ -40,6 +46,8 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
     private float mEraserSize;
     private Bitmap mBufferBitmap;
     private Canvas mBufferCanvas;
+
+    private Drawable eraserDrawable;
 
 
     @Override
@@ -86,8 +94,8 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
         mPaint.setFilterBitmap(true);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mDrawSize = 20;
-        mEraserSize = 40;
+        mDrawSize = 2;
+        mEraserSize = 30;
         mPaint.setStrokeWidth(mDrawSize);
         mPaint.setColor(0XFF000000);
 
@@ -101,6 +109,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
     }
 
 
+    @Override
     public void setMode(Mode mode) {
         if (mode != mMode) {
             mMode = mode;
@@ -133,7 +142,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
      */
     @Override
     public void setPenSize(float size) {
-        mEraserSize = size;
+        mDrawSize = size;
     }
 
 
@@ -207,6 +216,15 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
         if (mBufferBitmap != null) {
             canvas.drawBitmap(mBufferBitmap, 0, 0, null);
         }
+        if (mMode == Mode.ERASER && drawEraser) {
+            float tempStrokeWidth = mPaint.getStrokeWidth();
+            int tempColor = mPaint.getColor();
+            mPaint.setStrokeWidth(5.0f);
+            mPaint.setColor(ContextCompat.getColor(getContext(), R.color.lightgrey));
+            canvas.drawCircle(eraserX, eraserY, mEraserSize - 5, mPaint);
+            mPaint.setStrokeWidth(tempStrokeWidth);
+            mPaint.setColor(tempColor);
+        }
     }
 
     @Override
@@ -214,6 +232,11 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
         final int action = event.getAction() & MotionEvent.ACTION_MASK;
         final float x = event.getX();
         final float y = event.getY();
+        if (mMode == Mode.ERASER) {
+            eraserX = x;
+            eraserY = y;
+        }
+
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mLastX = x;
@@ -228,8 +251,11 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
                 if (mBufferBitmap == null) {
                     initBuffer();
                 }
-                if (mMode == Mode.ERASER && !presenter.canErase()) {
-                    break;
+                if (mMode == Mode.ERASER) {
+                    drawEraser = true;
+                    if (!presenter.canErase()) {
+                        break;
+                    }
                 }
                 mBufferCanvas.drawPath(mPath, mPaint);
                 invalidate();
@@ -239,6 +265,10 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
             case MotionEvent.ACTION_UP:
                 if (mMode == Mode.DRAW || presenter.canErase()) {
                     saveDrawingPath();
+                }
+                else if (mMode == Mode.ERASER) {
+                    drawEraser = false;
+                    invalidate();
                 }
                 mPath.reset();
                 break;

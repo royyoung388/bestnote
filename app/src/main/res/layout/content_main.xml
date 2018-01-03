@@ -57,6 +57,13 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/img_eraser"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/eraser_icon"/>
+
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>

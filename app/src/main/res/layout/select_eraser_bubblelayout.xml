@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daasuu.bl.BubbleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    app:bl_arrowDirection="top"
+    app:bl_arrowHeight="12dp"
+    app:bl_arrowPosition="16dp"
+    app:bl_arrowWidth="8dp"
+    app:bl_bubbleColor="@color/whitesmoke"
+    app:bl_cornersRadius="2dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView style="@style/EraserStyle"
+            android:id="@+id/btn_eraser_small"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+
+        <ImageView style="@style/EraserStyle"
+            android:id="@+id/btn_eraser_medium"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <ImageView style="@style/EraserStyle"
+            android:id="@+id/btn_eraser_large"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+</com.daasuu.bl.BubbleLayout>

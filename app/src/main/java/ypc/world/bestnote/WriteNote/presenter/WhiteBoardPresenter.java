@@ -5,6 +5,7 @@ import java.util.List;
 import ypc.world.bestnote.WriteNote.model.DrawInfos.DrawingInfo;
 import ypc.world.bestnote.WriteNote.model.WhiteBoardModel.IWhiteBoardModel;
 import ypc.world.bestnote.WriteNote.model.WhiteBoardModel.WhiteBoardModelImpl;
+import ypc.world.bestnote.WriteNote.ui.WhiteBoardView;
 import ypc.world.bestnote.WriteNote.view.IWhiteBoardView;
 
 /**
@@ -82,6 +83,12 @@ public class WhiteBoardPresenter {
 
     public void setEraserSize(float size) {
         view.setEraserSize(size);
+    }
+
+
+    public void setMode(WhiteBoardView.Mode mode)
+    {
+        view.setMode(mode);
     }
 }
 
