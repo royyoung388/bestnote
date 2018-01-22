@@ -50,7 +50,8 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     WhiteBoardPresenter whiteBoardPresenter;
     boolean isPencilPressed = false,
-            isEraserPressed = false;
+            isEraserPressed = false,
+            isMarkerPressed = false;
     boolean pencilBubbleDisplayed = false, eraserBubbleDisplayed = false;
     BubbleLayout pencilBubbleLayout, eraserBubbleLayout;
     PopupWindow pencilPopupWindow, eraserPopupWindow;
@@ -60,8 +61,11 @@ public class MainActivity extends BaseActivity implements IMainView {
     ImageView pencilImg;
     @BindView(R.id.img_eraser)
     ImageView eraserImg;
+    @BindView(R.id.img_marker)
+    ImageView markerImg;
     @BindView(R.id.view_colormarker)
     View colorMarkerView;
+
     @OnClick(R.id.btn_undo)
     public void click_BtnUndo() {
         whiteBoardPresenter.Undo();
@@ -106,12 +110,22 @@ public class MainActivity extends BaseActivity implements IMainView {
         }
     }
 
+    @OnClick(R.id.img_marker)
+    public void click_Marker(View v) {
+        refresh();
+        markerImg.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.marker_icon_selected));
+        isMarkerPressed = true;
+        whiteBoardPresenter.setMode(WhiteBoardView.Mode.HIGHTLIGHT);
+    }
+
 
     private void refresh() {
         isPencilPressed = false;
         isEraserPressed = false;
+        isMarkerPressed = false;
         pencilImg.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.pencil_icon));
         eraserImg.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.eraser_icon));
+        markerImg.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.marker_icon));
     }
 
     @Override
@@ -144,8 +158,7 @@ public class MainActivity extends BaseActivity implements IMainView {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(ColorModifyEvent event)
-    {
+    public void onEventMainThread(ColorModifyEvent event) {
         int color = event.getColor();
         whiteBoardPresenter.setPenColor(color);
         colorMarkerView.setBackgroundColor(color);
@@ -173,6 +186,8 @@ public class MainActivity extends BaseActivity implements IMainView {
         eraserPopupWindow = BubblePopupHelper.create(this, eraserBubbleLayout);
         initEraserBubbleListeners(eraserBubbleLayout);
 
+        refresh();
+        pencilImg.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.pencil_icon_selected));
     }
 
 
@@ -216,9 +231,9 @@ public class MainActivity extends BaseActivity implements IMainView {
 
 
     private void initPencilBubbleListeners(BubbleLayout bubbleLayout) {
-        Button btn2px = (Button)bubbleLayout.findViewById(R.id.btn_line2px),
-                btn3px = (Button)bubbleLayout.findViewById(R.id.btn_line3px),
-                btn4px = (Button)bubbleLayout.findViewById(R.id.btn_line4px);
+        Button btn2px = (Button) bubbleLayout.findViewById(R.id.btn_line2px),
+                btn3px = (Button) bubbleLayout.findViewById(R.id.btn_line3px),
+                btn4px = (Button) bubbleLayout.findViewById(R.id.btn_line4px);
         btn2px.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,7 +245,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         btn3px.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                whiteBoardPresenter.setPenSize(12.0f);
+                whiteBoardPresenter.setPenSize(18.0f);
                 pencilPopupWindow.dismiss();
             }
         });
@@ -238,7 +253,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         btn4px.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                whiteBoardPresenter.setPenSize(16.0f);
+                whiteBoardPresenter.setPenSize(36.0f);
                 pencilPopupWindow.dismiss();
             }
         });

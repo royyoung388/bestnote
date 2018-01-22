@@ -41,7 +41,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
     private boolean drawEraser = false;
 
 
-    private Xfermode mClearMode;
+    private Xfermode mClearMode, mHightlightMode;
     private float mDrawSize;
     private float mEraserSize;
     private Bitmap mBufferBitmap;
@@ -69,7 +69,8 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
 
     public enum Mode {
         DRAW,
-        ERASER
+        ERASER,
+        HIGHTLIGHT
     }
 
     private Mode mMode = Mode.DRAW;
@@ -96,11 +97,13 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mDrawSize = 2;
         mEraserSize = 30;
+
         mPaint.setStrokeWidth(mDrawSize);
         mPaint.setColor(0XFF000000);
 
         //设置图像混合模式为Clear
         mClearMode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
+        mHightlightMode = new PorterDuffXfermode(PorterDuff.Mode.DARKEN);
     }
 
 
@@ -111,57 +114,70 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
 
     @Override
     public void setMode(Mode mode) {
-        if (mode != mMode) {
-            mMode = mode;
-            if (mMode == Mode.DRAW) {
-                //绘图模式
-                mPaint.setXfermode(null);
-                mPaint.setStrokeWidth(mDrawSize);
-            } else {
-                //橡皮擦模式
-                mPaint.setXfermode(mClearMode);
-                mPaint.setStrokeWidth(mEraserSize);
-            }
-        }
+        mMode = mode;
+        updateSize();
     }
 
 
+    private void updateSize() {
+        if (mMode == Mode.DRAW) {
+            //绘图模式
+            mPaint.setXfermode(null);
+            mPaint.setStrokeWidth(mDrawSize);
+        } else if (mMode == Mode.ERASER){
+            //橡皮擦模式
+            mPaint.setXfermode(mClearMode);
+            mPaint.setStrokeWidth(mEraserSize * 2);
+        } else if (mMode == Mode.HIGHTLIGHT){
+            mPaint.setColor(Color.YELLOW);
+            mPaint.setXfermode(mHightlightMode);
+            mPaint.setStrokeWidth(45);
+        }
+    }
     /**
      * 设置橡皮擦大小
+     *
      * @param size
      */
     @Override
     public void setEraserSize(float size) {
         mEraserSize = size;
+        updateSize();
     }
 
 
     /**
      * 设置笔大小
+     *
      * @param size
      */
     @Override
     public void setPenSize(float size) {
         mDrawSize = size;
+        updateSize();
     }
 
 
     /**
      * 设置笔颜色
+     *
      * @param color
      */
     @Override
     public void setPenColor(int color) {
         mPaint.setColor(color);
+        updateSize();
     }
 
 
     /**
      * 设置笔透明度
+     *
      * @param alpha
      */
     public void setPenAlpha(int alpha) {
         mPaint.setAlpha(alpha);
+        updateSize();
     }
 
 
@@ -176,6 +192,8 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
             }
             invalidate();
         }
+
+
     }
 
 
@@ -216,6 +234,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
         if (mBufferBitmap != null) {
             canvas.drawBitmap(mBufferBitmap, 0, 0, null);
         }
+
         if (mMode == Mode.ERASER && drawEraser) {
             float tempStrokeWidth = mPaint.getStrokeWidth();
             int tempColor = mPaint.getColor();
@@ -265,8 +284,7 @@ public class WhiteBoardView extends View implements IWhiteBoardView {
             case MotionEvent.ACTION_UP:
                 if (mMode == Mode.DRAW || presenter.canErase()) {
                     saveDrawingPath();
-                }
-                else if (mMode == Mode.ERASER) {
+                } else if (mMode == Mode.ERASER) {
                     drawEraser = false;
                     invalidate();
                 }

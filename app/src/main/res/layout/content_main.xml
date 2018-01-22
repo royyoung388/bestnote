@@ -64,6 +64,14 @@
                 android:layout_height="35dp"
                 android:background="@drawable/eraser_icon"/>
 
+            <ImageView
+                android:id="@+id/img_marker"
+                android:layout_gravity="center"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/marker_icon"/>
+
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
